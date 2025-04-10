@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import Button from "./components/Button";
 
 const themeButtons: string[] = ["food", "nature", "animals"];
@@ -9,7 +9,11 @@ interface Setup {
   theme: string;
 }
 
-export default function SetupForm() {
+interface Props {
+  setStart: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function SetupForm({ setStart }: Props) {
   const [setup, setSetup] = useState<Setup>({ level: "", theme: "" });
 
   function selectLevelHandler(
@@ -30,8 +34,10 @@ export default function SetupForm() {
 
   function clickStartHandler(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
+    if (setup.level && setup.theme) {
+      setStart(true);
+    }
   }
-  console.log(setup);
 
   return (
     <form className="mt-6">
