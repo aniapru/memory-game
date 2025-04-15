@@ -39,10 +39,24 @@ const cards: Card[] = [
   { id: 16, icon: faShrimp, style: { color: "#e9609e" } },
 ];
 
+function shuffleArray(array: Card[]) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 export default function MemoryBoard() {
+  const [memoryCards, setMemoryCards] = useState<Card[]>([]);
   const [chosenCards, setChosenCards] = useState<string[]>([]);
   const [pairs, setPairs] = useState<string[]>([]);
   const [click, setClick] = useState<number[]>([]);
+
+  useEffect(() => {
+    const arr: Card[] = shuffleArray(cards);
+    setMemoryCards(arr);
+  }, []);
 
   useEffect(() => {
     if (chosenCards[0] === chosenCards[1]) {
@@ -55,7 +69,7 @@ export default function MemoryBoard() {
   return (
     <>
       <div className="grid grid-cols-4 grid-rows-4 gap-[1.2vh] p-[5%]">
-        {cards.map((card) => (
+        {memoryCards.map((card) => (
           <Card
             key={card.id}
             id={card.id}
