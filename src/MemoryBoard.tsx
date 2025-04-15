@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Card from "./components/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,8 +16,10 @@ import {
 interface Card {
   id: number;
   icon: IconDefinition;
+  name?: string;
   style: { color: string };
 }
+
 const cards: Card[] = [
   { id: 1, icon: faCarrot, style: { color: "#dd732c" } },
   { id: 2, icon: faCarrot, style: { color: "#dd732c" } },
@@ -37,11 +40,32 @@ const cards: Card[] = [
 ];
 
 export default function MemoryBoard() {
+  const [chosenCards, setChosenCards] = useState<string[]>([]);
+  const [pairs, setPairs] = useState<string[]>([]);
+  const [click, setClick] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (chosenCards[0] === chosenCards[1]) {
+      if (chosenCards.length !== 0) {
+        setPairs((prevState) => [...prevState, chosenCards[0]]);
+      }
+    }
+  }, [chosenCards, setPairs]);
+
   return (
     <>
       <div className="grid grid-cols-4 grid-rows-4 gap-[1.2vh] p-[5%]">
         {cards.map((card) => (
-          <Card key={card.id}>
+          <Card
+            key={card.id}
+            id={card.id}
+            name={card.icon.iconName}
+            paired={pairs.includes(card.icon.iconName)}
+            clicked={click.includes(card.id)}
+            setClick={setClick}
+            chosenCards={chosenCards}
+            setChosenCards={setChosenCards}
+          >
             <FontAwesomeIcon icon={card.icon} size="2xl" style={card.style} />
           </Card>
         ))}
