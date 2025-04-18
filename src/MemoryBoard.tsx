@@ -1,45 +1,9 @@
 import { useEffect, useState } from "react";
 import Card from "./components/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCarrot,
-  IconDefinition,
-  faPizzaSlice,
-  faEgg,
-  faLemon,
-  faAppleWhole,
-  faIceCream,
-  faBurger,
-  faShrimp,
-} from "@fortawesome/free-solid-svg-icons";
+import { Card as CardInterface } from "./types";
 
-interface Card {
-  id: number;
-  icon: IconDefinition;
-  name?: string;
-  style: { color: string };
-}
-
-const cards: Card[] = [
-  { id: 1, icon: faCarrot, style: { color: "#dd732c" } },
-  { id: 2, icon: faCarrot, style: { color: "#dd732c" } },
-  { id: 3, icon: faPizzaSlice, style: { color: "#321b0c" } },
-  { id: 4, icon: faPizzaSlice, style: { color: "#321b0c" } },
-  { id: 5, icon: faEgg, style: { color: "#f6f4f3" } },
-  { id: 6, icon: faEgg, style: { color: "#f6f4f3" } },
-  { id: 7, icon: faLemon, style: { color: "#edea11" } },
-  { id: 8, icon: faLemon, style: { color: "#edea11" } },
-  { id: 9, icon: faAppleWhole, style: { color: "#cc1313" } },
-  { id: 10, icon: faAppleWhole, style: { color: "#cc1313" } },
-  { id: 11, icon: faIceCream, style: { color: "#135dcc" } },
-  { id: 12, icon: faIceCream, style: { color: "#135dcc" } },
-  { id: 13, icon: faBurger, style: { color: "#5e2f2f" } },
-  { id: 14, icon: faBurger, style: { color: "#5e2f2f" } },
-  { id: 15, icon: faShrimp, style: { color: "#e9609e" } },
-  { id: 16, icon: faShrimp, style: { color: "#e9609e" } },
-];
-
-function shuffleArray(array: Card[]) {
+function shuffleArray(array: CardInterface[]) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
@@ -47,14 +11,18 @@ function shuffleArray(array: Card[]) {
   return array;
 }
 
-export default function MemoryBoard() {
-  const [memoryCards, setMemoryCards] = useState<Card[]>([]);
+interface Props {
+  cards: CardInterface[];
+}
+
+export default function MemoryBoard({ cards }: Props) {
+  const [memoryCards, setMemoryCards] = useState<CardInterface[]>([]);
   const [chosenCards, setChosenCards] = useState<string[]>([]);
   const [pairs, setPairs] = useState<string[]>([]);
   const [click, setClick] = useState<number[]>([]);
 
   useEffect(() => {
-    const arr: Card[] = shuffleArray(cards);
+    const arr: CardInterface[] = shuffleArray(cards);
     setMemoryCards(arr);
   }, []);
 

@@ -1,21 +1,17 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import Button from "./components/Button";
+import { Setup } from "./types";
 
 const themeButtons: string[] = ["food", "nature", "animals"];
 const levelButtons: string[] = ["easy", "medium", "hard"];
 
-interface Setup {
-  level: string;
-  theme: string;
-}
-
 interface Props {
+  setup: Setup;
+  setSetup: Dispatch<SetStateAction<Setup>>;
   setStart: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function SetupForm({ setStart }: Props) {
-  const [setup, setSetup] = useState<Setup>({ level: "", theme: "" });
-
+export default function SetupForm({ setup, setSetup, setStart }: Props) {
   function selectLevelHandler(
     e: React.MouseEvent<HTMLButtonElement>,
     level: string,
