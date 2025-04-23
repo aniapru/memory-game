@@ -24,7 +24,7 @@ export default function MemoryBoard({ cards }: Props) {
   useEffect(() => {
     const arr: CardInterface[] = shuffleArray(cards);
     setMemoryCards(arr);
-  }, []);
+  }, [cards]);
 
   useEffect(() => {
     if (chosenCards[0] === chosenCards[1]) {
@@ -34,9 +34,20 @@ export default function MemoryBoard({ cards }: Props) {
     }
   }, [chosenCards, setPairs]);
 
+  function gridLayout(cards: CardInterface[]) {
+    switch (cards.length) {
+      case 16:
+        return "grid-cols-4 grid-rows-4";
+      case 24:
+        return "grid-cols-4 grid-rows-6";
+      case 30:
+        return "grid-cols-5 grid-rows-6";
+    }
+  }
+
   return (
     <>
-      <div className="grid grid-cols-4 grid-rows-4 gap-[1.2vh] p-[5%]">
+      <div className={`grid ${gridLayout(cards)} gap-[1.2vh] p-[5%]`}>
         {memoryCards.map((card) => (
           <Card
             key={card.id}
