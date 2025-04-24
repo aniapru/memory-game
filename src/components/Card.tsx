@@ -1,4 +1,4 @@
-import { ReactNode, Dispatch, SetStateAction } from "react";
+import { ReactNode, Dispatch, SetStateAction, useRef, useEffect } from "react";
 
 interface CardProps {
   children: ReactNode;
@@ -21,6 +21,8 @@ export default function Card({
   clicked,
   setChosenCards,
 }: CardProps) {
+  const timeRef = useRef<null | number>(null);
+
   function cardClickHandler() {
     setClick((prev) => [...prev, id]);
     setChosenCards((prevState) => {
@@ -29,12 +31,21 @@ export default function Card({
       }
       return prevState;
     });
-
-    setTimeout(() => {
-      setChosenCards([]);
-      setClick([]);
-    }, 3500);
   }
+
+  useEffect(() => {
+    if (timeRef.current) {
+      clearTimeout(timeRef.current);
+    }
+
+    if (chosenCards.length === 2) {
+      timeRef.current = setTimeout(() => {
+        setChosenCards([]);
+        setClick([]);
+        timeRef.current = null;
+      }, 1200);
+    }
+  }, [chosenCards, setClick, setChosenCards]);
 
   return (
     <>
@@ -45,7 +56,7 @@ export default function Card({
         >
           <div className="absolute inset-0 flex items-center justify-center rounded-md bg-linear-to-tl from-cyan-600 to-cyan-400 text-black backface-hidden"></div>
           <div
-            className={`absolute inset-0 flex rotate-y-180 items-center justify-center rounded-md bg-linear-to-tl from-neutral-400 to-neutral-200 text-white backface-hidden`}
+            className={`absolute inset-0 flex rotate-y-180 items-center justify-center rounded-md bg-neutral-200 text-white backface-hidden`}
           >
             {children}
           </div>
