@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Card from "./components/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Card as CardInterface } from "./types";
+import { faFaceSmileBeam } from "@fortawesome/free-solid-svg-icons/faFaceSmileBeam";
 
 function shuffleArray(array: CardInterface[]) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -63,6 +64,14 @@ export default function MemoryBoard({ cards }: Props) {
           </Card>
         ))}
       </div>
+
+      {pairs.length === cards.length / 2 && (
+        <div>
+          <h2 className="mb-2 text-center font-serif text-3xl">
+            You WON! Congratulations <FontAwesomeIcon icon={faFaceSmileBeam} />
+          </h2>
+        </div>
+      )}
     </>
   );
 }
