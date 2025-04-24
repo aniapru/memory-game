@@ -45,7 +45,11 @@ function App() {
         memory game
       </h1>
       {start ? (
-        <MemoryBoard cards={themeAndLevelSetup()} />
+        <MemoryBoard
+          setStart={setStart}
+          setSetup={setSetup}
+          cards={themeAndLevelSetup()}
+        />
       ) : (
         <SetupForm setStart={setStart} setup={setup} setSetup={setSetup} />
       )}

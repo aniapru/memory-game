@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { Dispatch, useEffect, useState, SetStateAction } from "react";
 import Card from "./components/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Card as CardInterface } from "./types";
+import { Card as CardInterface, Setup } from "./types";
 import { faFaceSmileBeam } from "@fortawesome/free-solid-svg-icons/faFaceSmileBeam";
+import Button from "./components/Button";
 
 function shuffleArray(array: CardInterface[]) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -14,9 +15,11 @@ function shuffleArray(array: CardInterface[]) {
 
 interface Props {
   cards: CardInterface[];
+  setStart: Dispatch<SetStateAction<boolean>>;
+  setSetup: Dispatch<SetStateAction<Setup>>;
 }
 
-export default function MemoryBoard({ cards }: Props) {
+export default function MemoryBoard({ cards, setStart, setSetup }: Props) {
   const [memoryCards, setMemoryCards] = useState<CardInterface[]>([]);
   const [chosenCards, setChosenCards] = useState<string[]>([]);
   const [pairs, setPairs] = useState<string[]>([]);
@@ -46,6 +49,15 @@ export default function MemoryBoard({ cards }: Props) {
     }
   }
 
+  function backToMenuHandler() {
+    setStart(false);
+    setSetup({ level: "", theme: "" });
+  }
+
+  function resetGameHandler() {
+    setPairs([]);
+  }
+
   return (
     <>
       <div className={`grid ${gridLayout(cards)} gap-[1.2vh] p-[5%]`}>
@@ -72,6 +84,11 @@ export default function MemoryBoard({ cards }: Props) {
           </h2>
         </div>
       )}
+
+      <div className="mt-8 flex h-[50px] justify-between">
+        <Button onClick={backToMenuHandler}>{"Back to menu"}</Button>
+        <Button onClick={resetGameHandler}>{"Reset"}</Button>
+      </div>
     </>
   );
 }
