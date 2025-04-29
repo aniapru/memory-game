@@ -49,7 +49,7 @@ export default function Card({
 
   return (
     <>
-      <div className="mh-[100px] mw-[100px] flex aspect-square items-center justify-center bg-transparent perspective-[1000px]">
+      <div className="flex aspect-square h-full w-full items-center justify-center bg-transparent perspective-[1000px]">
         <div
           onClick={cardClickHandler}
           className={`relative h-full w-full text-center shadow-md transition-transform duration-400 transform-3d ${chosenCards.length === 2 ? "pointer-events-none" : null} ${paired ? "rotate-y-180" : null} ${clicked ? "pointer-events-none rotate-y-180" : null}`}

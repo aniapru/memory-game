@@ -40,10 +40,9 @@ function App() {
   }
 
   return (
-    <div className="mw-[600px]">
-      <h1 className="mt-6 mb-6 text-center font-serif text-6xl font-bold">
-        memory game
-      </h1>
+    <div
+      className={`${start ? "m-auto max-w-[650px]" : null} flex w-full flex-col justify-center p-[3%]`}
+    >
       {start ? (
         <MemoryBoard
           setStart={setStart}
@@ -51,7 +50,12 @@ function App() {
           cards={themeAndLevelSetup()}
         />
       ) : (
-        <SetupForm setStart={setStart} setup={setup} setSetup={setSetup} />
+        <>
+          <h1 className="mt-[5%] mb-[10%] text-center font-serif text-4xl font-bold sm:text-5xl md:text-6xl">
+            memory game
+          </h1>
+          <SetupForm setStart={setStart} setup={setup} setSetup={setSetup} />
+        </>
       )}
     </div>
   );

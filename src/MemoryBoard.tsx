@@ -43,9 +43,9 @@ export default function MemoryBoard({ cards, setStart, setSetup }: Props) {
       case 16:
         return "grid-cols-4 grid-rows-4";
       case 24:
-        return "grid-cols-4 grid-rows-6";
+        return "grid-cols-6 grid-rows-4";
       case 30:
-        return "grid-cols-5 grid-rows-6";
+        return "grid-cols-6 grid-rows-5";
     }
   }
 
@@ -59,8 +59,8 @@ export default function MemoryBoard({ cards, setStart, setSetup }: Props) {
   }
 
   return (
-    <>
-      <div className={`grid ${gridLayout(cards)} gap-[1.2vh] p-[5%]`}>
+    <div className={"flex h-[100%] flex-col items-center"}>
+      <div className={`grid ${gridLayout(cards)} h-full w-full gap-[1.2vh]`}>
         {memoryCards.map((card) => (
           <Card
             key={card.id}
@@ -79,16 +79,16 @@ export default function MemoryBoard({ cards, setStart, setSetup }: Props) {
 
       {pairs.length === cards.length / 2 && (
         <div>
-          <h2 className="mb-2 text-center font-serif text-3xl">
+          <h2 className="mt-[4%] mb-[2%] text-center font-serif text-xl sm:text-3xl">
             You WON! Congratulations <FontAwesomeIcon icon={faFaceSmileBeam} />
           </h2>
         </div>
       )}
 
-      <div className="mt-8 flex h-[50px] justify-between">
+      <div className="mt-[3%] flex w-[100%] justify-between gap-2">
         <Button onClick={backToMenuHandler}>{"Back to menu"}</Button>
         <Button onClick={resetGameHandler}>{"Reset"}</Button>
       </div>
-    </>
+    </div>
   );
 }

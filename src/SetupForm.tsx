@@ -37,10 +37,10 @@ export default function SetupForm({ setup, setSetup, setStart }: Props) {
 
   return (
     <form className="mt-6">
-      <h2 className="mb-2 text-center font-serif text-3xl">
+      <h2 className="mb-2 text-center font-serif text-xl md:text-3xl">
         select difficulty
       </h2>
-      <div className="mb-8 flex h-[50px] justify-between">
+      <div className="mb-8 flex justify-center gap-[2%]">
         {levelButtons.map((level) => (
           <Button
             key={level}
@@ -52,8 +52,10 @@ export default function SetupForm({ setup, setSetup, setStart }: Props) {
         ))}
       </div>
 
-      <h2 className="mb-2 text-center font-serif text-3xl">select theme</h2>
-      <div className="mb-8 flex h-[50px] justify-between">
+      <h2 className="mb-2 text-center font-serif text-xl md:text-3xl">
+        select theme
+      </h2>
+      <div className="mb-8 flex justify-center gap-[2%]">
         {themeButtons.map((theme) => (
           <Button
             key={theme}
@@ -65,7 +67,7 @@ export default function SetupForm({ setup, setSetup, setStart }: Props) {
         ))}
       </div>
 
-      <div className="mt-10 flex h-[50px] justify-center">
+      <div className="mt-10 flex justify-center">
         <Button onClick={clickStartHandler}>{"start"}</Button>
       </div>
     </form>
